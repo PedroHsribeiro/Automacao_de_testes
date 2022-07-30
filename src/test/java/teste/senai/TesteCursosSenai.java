@@ -1,11 +1,15 @@
 package teste.senai;
 
+import java.time.Duration;
+import java.util.concurrent.TimeUnit;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class TesteCursosSenai {
 
@@ -25,5 +29,10 @@ public class TesteCursosSenai {
 		//Selecionar campo de busca
 		driver.findElement(By.id("Busca1_txtFiltro")).sendKeys("Gestão");
 		driver.findElement(By.id("Busca1_txtFiltro")).sendKeys(Keys.ENTER);
+
+		driver.manage().timeouts().implicitlyWait(200, TimeUnit.MILLISECONDS);
+		driver.findElement(By.className("sub")).click();
+		driver.manage().timeouts().implicitlyWait(200, TimeUnit.MILLISECONDS);
+		driver.findElement(By.id("MenuLateral_rptMenuEscola_rptSubMenu_0_lnkSubMenu_0")).click();	
 	}
 }
