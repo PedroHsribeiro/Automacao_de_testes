@@ -3,6 +3,7 @@ package teste.senai;
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -20,19 +21,45 @@ public class TesteCursosSenai {
 		System.setProperty("webdriver.chrome.driver", "C:\\Program Files (x86)\\ChromeDriver\\chromedriver.exe");
 		driver = new ChromeDriver();
 		driver.manage().window().maximize();
+		
+		driver.get("http://localhost:4200/");
 	}
 	
 	@Test
 	public void TesteNavegabilidade() {
-		driver.get("https://informatica.sp.senai.br/");
 		
-		//Selecionar campo de busca
-		driver.findElement(By.id("Busca1_txtFiltro")).sendKeys("Gestão");
-		driver.findElement(By.id("Busca1_txtFiltro")).sendKeys(Keys.ENTER);
+		driver.findElement(By.className("menuLogin")).click();
+		
+		try {
+			
+			driver.findElement(By.xpath("//*[@id=\"register-email\"]")).sendKeys("pedro.henrique@email.com");
+			driver.findElement(By.xpath("//*[@id=\"register-password\"]")).sendKeys("senhadopedro");
+			driver.findElement(By.xpath("//*[@id=\"register-cpf\"]")).sendKeys("Pedro");
+			driver.findElement(By.xpath("//*[@id=\"register-cep\"]")).sendKeys("Silva");
+			driver.findElement(By.className("button-account-register")).click();
+			
+			Thread.sleep(3000);
+			
+			driver.findElement(By.id("login-email")).sendKeys("pedro.henrique@email.com");
+			driver.findElement(By.id("login-password")).sendKeys("senhadopedro");
+			driver.findElement(By.className("button-account-login")).click();
+			
+			
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+			
 
-		driver.manage().timeouts().implicitlyWait(200, TimeUnit.MILLISECONDS);
-		driver.findElement(By.className("sub")).click();
-		driver.manage().timeouts().implicitlyWait(200, TimeUnit.MILLISECONDS);
-		driver.findElement(By.id("MenuLateral_rptMenuEscola_rptSubMenu_0_lnkSubMenu_0")).click();	
+	
+		
+
 	}
+	
+	//@After
+	//public void Fechar() {
+	//	driver.quit();
+	//}
+	
 }
