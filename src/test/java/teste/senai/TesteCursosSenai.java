@@ -46,6 +46,8 @@ public class TesteCursosSenai {
 			
 			
 			Thread.sleep(3000);
+			
+			driver.findElement(By.className("logo-text")).click();
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
