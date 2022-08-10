@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -30,38 +31,36 @@ public class TesteCursosSenai {
 		
 		driver.findElement(By.className("menuLogin")).click();
 		
+		WebElement campoEmail = driver.findElement(By.id("login-email"));
+		WebElement campoSenha = driver.findElement(By.id("login-password"));
+		WebElement botao = driver.findElement(By.className("button-account-login"));
+		
+		String[] listaEmail = {"pedro.henrique@email.com", "pedro.teste@teste.com", "pedro.teste@email.com"};
+		String[] listaSenha = {"senhadopedro", "senhadopedro", "senhadopedro"};
 		try {
 			
-			driver.findElement(By.xpath("//*[@id=\"register-email\"]")).sendKeys("pedro.henrique@email.com");
-			driver.findElement(By.xpath("//*[@id=\"register-password\"]")).sendKeys("senhadopedro");
-			driver.findElement(By.xpath("//*[@id=\"register-cpf\"]")).sendKeys("Pedro");
-			driver.findElement(By.xpath("//*[@id=\"register-cep\"]")).sendKeys("Silva");
-			driver.findElement(By.className("button-account-register")).click();
-			
-			Thread.sleep(3000);
-			
-			driver.findElement(By.id("login-email")).sendKeys("pedro.henrique@email.com");
-			driver.findElement(By.id("login-password")).sendKeys("senhadopedro");
-			driver.findElement(By.className("button-account-login")).click();
-			
-			
-			Thread.sleep(3000);
-			
+			for (int contador = 0; contador < 3; contador++) {
+				campoEmail.sendKeys(listaEmail[contador]);
+				campoSenha.sendKeys(listaSenha[contador]);
+				botao.click();
+				
+				Thread.sleep(3000);
+				
+				campoEmail.clear();
+				campoSenha.clear();
+
+			}
+		
 			driver.findElement(By.className("logo-text")).click();
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-			
-
-	
-		
-
 	}
 	
-	//@After
-	//public void Fechar() {
-	//	driver.quit();
-	//}
+	@After
+	public void Fechar() {
+		driver.quit();
+	}
 	
 }
